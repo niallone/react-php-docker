@@ -1,0 +1,61 @@
+version: '2'
+
+networks:
+  intnet:
+    driver: bridge
+services:
+  db_re:
+    image: rethinkdb:latest
+    networks:
+      - intnet
+    ports:
+      - "8081:8080"
+      - "29015:29015"
+      - "28015:28015"
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: changeme
+      MYSQL_DATABASE: mybb
+      MYSQL_USER: mybb
+      MYSQL_PASSWORD: changeme
+    networks:
+      - intnet
+    restart: on-failure
+    volumes:
+     - ${PWD}/mariadb:/var/lib/mysql
+  app:
+    build: ./app
+    networks:
+      - intnet
+    ports:
+      - "8080:5000"
+  phpfpm:
+    image: 'bitnami/php-fpm:latest'
+    networks:
+      - intnet
+    volumes:
+      - ${PWD}/api:/api
+      - ${PWD}/config/php-fpm.conf:/opt/bitnami/php/etc/php-fpm.conf
+      - ${PWD}/config/php.ini:/opt/bitnami/php/etc/conf.d/intadoc.ini
+  composer:
+    restart: 'no'
+    image: 'composer'
+    command: install
+    volumes:
+      - ${PWD}/api:/api
+  nginx:
+    image: 'bitnami/nginx:latest'
+    links:
+      - phpfpm
+    depends_on:
+      - phpfpm
+    networks:
+      - intnet
+    ports:
+      - '80:8080'
+    volumes:
+      - ./config/app.conf:/opt/bitnami/nginx/conf/server_blocks/app.conf
+      - ./config/api.conf:/opt/bitnami/nginx/conf/server_blocks/api.conf
+      - ${PWD}/app:/app
+      

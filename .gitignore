@@ -1,0 +1,3 @@
+app/vendor
+composer.lock
+/mariadb

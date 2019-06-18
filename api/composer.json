@@ -1,0 +1,13 @@
+
+{
+    "require": {
+        "league/route": "^4.2",
+        "league/container": "^3.2",
+        "zendframework/zend-diactoros": "^2.1",
+        "symfony/config": "^4.3",
+        "campaignmonitor/createsend-php": "^6.0",
+        "aws/aws-sdk-php": "^3.100",
+        "hellogerard/jobby": "^3.4"
+    },
+    "minimum-stability": "stable"
+}
