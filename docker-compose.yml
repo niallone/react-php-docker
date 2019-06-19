@@ -35,15 +35,15 @@ services:
     networks:
       - intnet
     volumes:
-      - ${PWD}/api:/api
+      - ${PWD}/api:/app
       - ${PWD}/config/php-fpm.conf:/opt/bitnami/php/etc/php-fpm.conf
-      - ${PWD}/config/php.ini:/opt/bitnami/php/etc/conf.d/intadoc.ini
+      - ${PWD}/config/php.ini:/opt/bitnami/php/etc/conf.d/app.ini
   composer:
     restart: 'no'
     image: 'composer'
     command: install
     volumes:
-      - ${PWD}/api:/api
+      - ${PWD}/api:/app
   nginx:
     image: 'bitnami/nginx:latest'
     links:

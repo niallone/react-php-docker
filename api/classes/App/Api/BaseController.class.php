@@ -12,7 +12,7 @@
  * @link      https://www.studionone.com.au/
  */
 
-namespace Intadoc\Api;
+namespace App\Api;
 
 use App\AppCore;
 use App\Api\Transformer\AmazonSesTransformer;
