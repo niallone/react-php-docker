@@ -29,7 +29,7 @@ services:
     networks:
       - intnet
     ports:
-      - "8080:5000"
+      - "8090:80"
   phpfpm:
     image: 'bitnami/php-fpm:latest'
     networks:
@@ -48,8 +48,10 @@ services:
     image: 'bitnami/nginx:latest'
     links:
       - phpfpm
+      - app
     depends_on:
       - phpfpm
+      - app
     networks:
       - intnet
     ports:
