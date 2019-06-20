@@ -23,6 +23,7 @@ NOTE: THIS IS A WORK IN PROGRESS
 
 ### Usage..
 
-```docker-compose build```
-```docker-compose up -d```
+`docker-compose build`
+
+`docker-compose up -d`
 
