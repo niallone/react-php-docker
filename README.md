@@ -2,7 +2,7 @@
 
 ..is a docker-compose microapp react setup with a php api and composer building
 
-#### GIFBUILD
+NOTE: THIS IS A WORK IN PROGRESS
 
 ### Makes containers..
 
