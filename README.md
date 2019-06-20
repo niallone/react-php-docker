@@ -4,6 +4,8 @@
 
 NOTE: THIS IS A WORK IN PROGRESS
 
+![gif of building](https://github.com/niallone/react-php-docker/blob/master/doc/build.gif)
+
 ### Makes containers..
 
 - db_re - rethink database
