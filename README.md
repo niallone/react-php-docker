@@ -8,15 +8,21 @@ NOTE: THIS IS A WORK IN PROGRESS
 
 ### Makes containers..
 
-- db_re - rethink database
-- db - mariadb
-- app - react
-- nginx - web server 
-    - serves app.example.com & api.example.com
-    - api server proxypasses any php requests to phpfpm server
-- phpfpm - php processor
-- composer - php composer builder
+- `db_re` - RethinkDB - Realtime JSON database
+- `db` - MariaDB - Relational database
+- `app` - React
+- `nginx` - Web Server 
+    - Serves app.example.com & api.example.com
+    - API server proxypasses PHP scripts to phpfpm server
+- `phpfpm` - PHP processor
+- `composer` - PHP composer build task
 
 ### Notes..
 
-- add app.example.io.docker & api.example.io.docker to hosts file
+- Add `app.example.io.docker` & `api.example.io.docker` to `hosts` file
+
+### Usage..
+
+```docker-compose build```
+```docker-compose up -d```
+
