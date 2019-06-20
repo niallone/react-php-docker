@@ -3,16 +3,19 @@ version: '2'
 networks:
   intnet:
     driver: bridge
+
 services:
   db_re:
+    container_name: rethinkdb
     image: rethinkdb:latest
     networks:
       - intnet
     ports:
-      - "8081:8080"
-      - "29015:29015"
-      - "28015:28015"
+      - 8081:8080
+      - 29015:29015
+      - 28015:28015
   db:
+    container_name: db
     image: mariadb:latest
     environment:
       MYSQL_ROOT_PASSWORD: changeme
@@ -23,15 +26,17 @@ services:
       - intnet
     restart: on-failure
     volumes:
-     - ${PWD}/mariadb:/var/lib/mysql
+      - ${PWD}/mariadb:/var/lib/mysql
   app:
+    container_name: app
     build: ./app
     networks:
       - intnet
     ports:
-      - "8090:80"
+      - 8090:80
   phpfpm:
-    image: 'bitnami/php-fpm:latest'
+    container_name: phpfpm
+    image: bitnami/php-fpm:latest
     networks:
       - intnet
     volumes:
@@ -39,13 +44,15 @@ services:
       - ${PWD}/config/php-fpm.conf:/opt/bitnami/php/etc/php-fpm.conf
       - ${PWD}/config/php.ini:/opt/bitnami/php/etc/conf.d/app.ini
   composer:
+    container_name: composer
     restart: 'no'
-    image: 'composer'
+    image: composer
     command: install
     volumes:
       - ${PWD}/api:/app
   nginx:
-    image: 'bitnami/nginx:latest'
+    container_name: web
+    image: bitnami/nginx:latest
     links:
       - phpfpm
       - app
@@ -55,9 +62,8 @@ services:
     networks:
       - intnet
     ports:
-      - '80:8080'
+      - 80:8080
     volumes:
       - ./config/app.conf:/opt/bitnami/nginx/conf/server_blocks/app.conf
       - ./config/api.conf:/opt/bitnami/nginx/conf/server_blocks/api.conf
       - ${PWD}/app:/app
-      
