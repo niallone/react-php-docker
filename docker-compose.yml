@@ -19,14 +19,15 @@ services:
     image: mariadb:latest
     environment:
       MYSQL_ROOT_PASSWORD: changeme
-      MYSQL_DATABASE: mybb
-      MYSQL_USER: mybb
+      MYSQL_DATABASE: changeme
+      MYSQL_USER: changeme
       MYSQL_PASSWORD: changeme
     networks:
       - intnet
     restart: on-failure
     volumes:
       - ${PWD}/mariadb:/var/lib/mysql
+      - ${PWD}/mariadb/mysql_sock:/var/run/mysqld
   app:
     container_name: app
     build: ./app
@@ -43,6 +44,7 @@ services:
       - ${PWD}/api:/app
       - ${PWD}/config/php-fpm.conf:/opt/bitnami/php/etc/php-fpm.conf
       - ${PWD}/config/php.ini:/opt/bitnami/php/etc/conf.d/app.ini
+      - ${PWD}/mariadb/mysql_sock:/var/run/mysqld
   composer:
     container_name: composer
     restart: 'no'

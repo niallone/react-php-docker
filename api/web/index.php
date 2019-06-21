@@ -12,6 +12,12 @@
  * @link      https://www.studionone.com.au/
  */
 
+// Connect to Maria SQL DB..
+require_once __DIR__ . '/../config/db-sql.php';
+
+// Autoload namespaces and classes..
 require_once __DIR__ . '/../loader.php';
+
+
 
 echo "!";
