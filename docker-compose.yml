@@ -14,6 +14,9 @@ services:
       - 8081:8080
       - 29015:29015
       - 28015:28015
+    volumes:
+      - ${PWD}/rethinkdb:/data
+    command: rethinkdb --bind all -d /data 
   db:
     container_name: db
     image: mariadb:latest
